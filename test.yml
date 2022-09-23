@@ -1,0 +1,21 @@
+---
+- name: 플레이북
+  hosts: all
+  become: true
+  tasks:
+    - name: httpd installation
+      yum:
+        name: httpd
+        state: present
+        
+    - name: stop firewalld
+      service:
+        name: firewalld
+        state: stopped
+        enabled: false
+        
+    - name: start and enable httpd
+      service:
+        name: httpd
+        state: started
+        enabled: true
